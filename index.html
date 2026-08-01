@@ -3,555 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TecnoInclusión</title>
+<title>TecnoInclusión - Inicio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --cream:#FFF8EC; --teal:#1F6E72; --teal-dark:#134D50; --coral:#FF8358;
-    --yellow:#FFC94A; --lavender:#EDE7FF; --purple:#7C6FE0; --green:#3FAE73; --red:#E8756A;
-    --ink:#243B3D; --white:#FFFFFF; --radius-lg:28px; --radius-md:18px;
-    --shadow: 0 10px 24px rgba(31,110,114,0.14);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.01ms !important; transition-duration:.01ms !important;} }
-  body{margin:0; background:var(--cream); color:var(--ink); font-family:'Atkinson Hyperlegible',sans-serif; font-size:18px; line-height:1.5;}
-  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif; color:var(--teal-dark); margin:0 0 .4em 0;}
-  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
-  a{color:inherit;}
-  button{font-family:'Atkinson Hyperlegible',sans-serif;}
-
-  nav.topnav{position:sticky; top:0; z-index:50; background:var(--teal); box-shadow:0 4px 14px rgba(0,0,0,.12);}
-  .navwrap{max-width:1100px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;}
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Baloo 2'; font-weight:800; color:#fff; font-size:1.3rem;}
-  .navlinks{display:flex; gap:6px; flex-wrap:wrap;}
-  .navlinks a{display:flex; align-items:center; gap:6px; color:#fff; text-decoration:none; font-weight:700; font-family:'Baloo 2'; padding:10px 14px; border-radius:14px; font-size:.98rem; transition:background .2s, transform .2s;}
-  .navlinks a:hover, .navlinks a:focus-visible{background:rgba(255,255,255,.18); transform:translateY(-2px);}
-  .navlinks a:focus-visible{outline:3px solid var(--yellow); outline-offset:2px;}
-  .bit{width:44px; height:44px; flex-shrink:0;}
-
-  section{padding:60px 0;}
-  .eyebrow{display:inline-block; font-family:'Baloo 2'; font-weight:700; background:var(--yellow); color:var(--teal-dark); padding:6px 16px; border-radius:999px; font-size:.9rem; margin-bottom:14px;}
-
-  .hero{background:linear-gradient(180deg, var(--teal) 0%, #2C8489 100%); color:#fff; padding:70px 0 90px 0;}
-  .hero .wrap{display:flex; align-items:center; gap:40px; flex-wrap:wrap;}
-  .hero-text{flex:1 1 380px;}
-  .hero h1{color:#fff; font-size:2.5rem; line-height:1.15;}
-  .hero p{font-size:1.1rem; max-width:520px;}
-  .hero-mascot{flex:1 1 220px; display:flex; justify-content:center;}
-  .btnrow{display:flex; gap:14px; flex-wrap:wrap; margin-top:24px;}
-  .btn{font-family:'Baloo 2'; font-weight:700; text-decoration:none; padding:14px 26px; border-radius:16px; display:inline-flex; align-items:center; gap:8px; font-size:1.05rem; border:none; cursor:pointer; transition:transform .15s;}
-  .btn:hover{transform:translateY(-3px);}
-  .btn:focus-visible{outline:3px solid var(--teal-dark); outline-offset:3px;}
-  .btn-primary{background:var(--coral); color:#fff; box-shadow:0 8px 18px rgba(255,131,88,.4);}
-  .btn-light{background:#fff; color:var(--teal-dark); box-shadow:0 8px 18px rgba(0,0,0,.15);}
-
-  .sec-alt{background:#fff;}
-  .sec-band{background:var(--lavender);}
-
-  .inclu-row{display:flex; gap:40px; flex-wrap:wrap; align-items:flex-start; margin-top:30px;}
-  .inclu-col{flex:1 1 320px;}
-  .bubble{background:var(--cream); border-radius:var(--radius-md); padding:20px; margin-bottom:16px; border-left:6px solid var(--coral);}
-  .bubble h4{font-family:'Baloo 2'; margin:0 0 6px 0; color:var(--teal-dark);}
-  .card{background:#fff; border-radius:var(--radius-lg); padding:26px; box-shadow:var(--shadow);}
-
-  /* TABS */
-  .tabbar{display:flex; gap:10px; flex-wrap:wrap; margin:30px 0 10px 0;}
-  .tabbtn{font-family:'Baloo 2'; font-weight:700; background:#fff; border:3px solid transparent; border-radius:16px; padding:12px 18px; cursor:pointer; font-size:1rem; display:flex; align-items:center; gap:8px; box-shadow:var(--shadow); transition:transform .15s, border-color .15s;}
-  .tabbtn:hover{transform:translateY(-3px);}
-  .tabbtn.active{border-color:var(--coral); background:#FFF1DF;}
-  .tabbtn:focus-visible{outline:3px solid var(--teal-dark); outline-offset:2px;}
-  .tabbtn .badgecheck{font-size:.85rem;}
-
-  .panel{background:#fff; border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow); margin-top:14px;}
-  .panel h3{font-size:1.4rem;}
-  .panel .sub{color:#5b7072; margin-bottom:20px;}
-
-  /* MATCH GAME */
-  .match-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
-  @media(max-width:640px){.match-grid{grid-template-columns:1fr;}}
-  .match-col h4{font-family:'Baloo 2'; margin-bottom:10px; color:var(--teal);}
-  .match-item{display:block; width:100%; text-align:left; background:var(--cream); border:2px solid #E3D9C4; border-radius:12px; padding:12px 16px; margin-bottom:10px; cursor:pointer; font-weight:700; font-family:'Baloo 2'; font-size:.98rem; transition:.15s;}
-  .match-item:hover{border-color:var(--coral);}
-  .match-item.selected{border-color:var(--purple); background:var(--lavender);}
-  .match-item.correct{border-color:var(--green); background:#E1F6EB; cursor:default;}
-  .match-item.wrong{border-color:var(--red); background:#FFE3E1;}
-
-  /* ORDER GAME */
-  .order-pool{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;}
-  .order-chip{background:var(--cream); border:2px solid #E3D9C4; border-radius:12px; padding:12px 16px; cursor:pointer; font-family:'Baloo 2'; font-weight:700; font-size:.95rem;}
-  .order-chip:hover{border-color:var(--coral);}
-  .order-chip.used{opacity:.35; cursor:default;}
-  .order-list{list-style:none; padding:0; margin:0 0 16px 0; min-height:50px; border:2px dashed #cbb; border-radius:12px; padding:14px;}
-  .order-list li{background:var(--lavender); font-family:'Baloo 2'; font-weight:700; padding:10px 14px; border-radius:10px; margin-bottom:8px;}
-
-  /* DIAGNOSE GAME */
-  .diag-case{background:var(--cream); border-radius:14px; padding:18px; margin-bottom:16px;}
-  .diag-case p.problem{font-family:'Baloo 2'; font-weight:700; margin:0 0 10px 0;}
-  .diag-opts{display:flex; gap:10px; flex-wrap:wrap;}
-  .diag-opt{background:#fff; border:2px solid #E3D9C4; border-radius:10px; padding:9px 14px; cursor:pointer; font-family:'Baloo 2'; font-weight:600; font-size:.92rem;}
-  .diag-opt.correct{background:#E1F6EB; border-color:var(--green);}
-  .diag-opt.wrong{background:#FFE3E1; border-color:var(--red);}
-
-  .feedback{margin-top:14px; font-family:'Baloo 2'; font-weight:700; min-height:24px;}
-  .checkbtn{margin-top:10px; font-family:'Baloo 2'; font-weight:700; background:var(--teal); color:#fff; border:none; padding:11px 20px; border-radius:12px; cursor:pointer;}
-  .checkbtn:hover{background:var(--teal-dark);}
-  .checkbtn:disabled{opacity:.5; cursor:default;}
-
-  /* VIDEO PANEL */
-  .video-frame-wrap{position:relative; padding-top:56.25%; border-radius:16px; overflow:hidden; margin-bottom:16px; box-shadow:var(--shadow);}
-  .video-frame-wrap iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0;}
-  .a11y-row{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
-  .a11y{font-size:.78rem; background:#F0F0F0; padding:3px 9px; border-radius:8px; color:#555;}
-
-  /* QUIZ */
-  .quiz-q{font-family:'Baloo 2'; font-size:1.15rem; margin:20px 0 12px 0;}
-  .quiz-opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px;}
-  .quiz-opt{background:var(--cream); border:2px solid #E3D9C4; border-radius:12px; padding:12px 14px; font-family:'Baloo 2'; font-weight:600; cursor:pointer; text-align:left; font-size:.98rem;}
-  .quiz-opt:hover{border-color:var(--coral);}
-  .quiz-opt.correct{background:#E1F6EB; border-color:var(--green);}
-  .quiz-opt.wrong{background:#FFE3E1; border-color:var(--red);}
-  .quiz-opt[disabled]{cursor:default;}
-
-  /* PROGRESS DASHBOARD */
-  .dash{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin:30px 0;}
-  .dash-item{background:#fff; border-radius:18px; padding:16px 20px; text-align:center; box-shadow:var(--shadow); width:120px;}
-  .dash-item .emoji{font-size:1.8rem; display:block; margin-bottom:6px; filter:grayscale(100%); opacity:.4; transition:.3s;}
-  .dash-item.unlocked .emoji{filter:none; opacity:1;}
-  .dash-item .lbl{font-family:'Baloo 2'; font-weight:700; font-size:.85rem;}
-  .progress-track{background:#E9E2D0; border-radius:999px; height:16px; overflow:hidden; margin:10px 0 30px 0;}
-  .progress-fill{background:linear-gradient(90deg, var(--coral), var(--yellow)); height:100%; width:0%; transition:width .5s;}
-
-  footer{background:var(--teal-dark); color:#fff; padding:36px 0; text-align:center; font-family:'Baloo 2';}
-  footer p{margin:4px 0; opacity:.85; font-size:.9rem;}
-  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="topnav">
   <div class="navwrap">
-    <div class="brand">
+    <a class="brand" href="index.html">
       <svg class="bit" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="18" width="36" height="30" rx="10" fill="#FFC94A"/><circle cx="25" cy="33" r="4.5" fill="#134D50"/><circle cx="39" cy="33" r="4.5" fill="#134D50"/><rect x="26" y="41" width="12" height="4" rx="2" fill="#134D50"/><rect x="29" y="6" width="6" height="12" rx="3" fill="#FFC94A"/><circle cx="32" cy="6" r="5" fill="#FF8358"/></svg>
       TecnoInclusión
-    </div>
+    </a>
     <div class="navlinks">
-      <a href="#inicio">🏠 Inicio</a>
-      <a href="#inclusion">🤝 Inclusión</a>
-      <a href="#actividades">🎮 Actividades</a>
-      <a href="#videos">🎬 Videos</a>
-      <a href="#evaluaciones">⭐ Evaluaciones</a>
+      <a href="index.html" class="active">🏠 Inicio</a>
+      <a href="inclusion.html">🤝 Inclusión</a>
+      <a href="actividades.html">🎮 Actividades</a>
+      <a href="videos.html">🎬 Videos</a>
+      <a href="evaluaciones.html">⭐ Evaluaciones</a>
     </div>
   </div>
 </nav>
 
-<section id="inicio" class="hero">
+<main>
+<section class="hero">
+  <div class="blob float" style="width:160px; height:160px; background:var(--coral); top:-40px; left:-40px;"></div>
+  <div class="blob float" style="width:120px; height:120px; background:var(--yellow); bottom:-30px; right:10%; animation-delay:1.5s;"></div>
+  <span class="star float" style="top:20%; left:8%; font-size:1.6rem;">✨</span>
+  <span class="star float" style="top:65%; left:18%; font-size:1.2rem; animation-delay:2s;">⭐</span>
+  <span class="star float" style="top:30%; right:10%; font-size:1.8rem; animation-delay:1s;">✨</span>
   <div class="wrap">
     <div class="hero-text">
       <span class="eyebrow">I.E. Carlos Lleras Restrepo</span>
       <h1>¡Aprender sistemas también es para ti!</h1>
-      <p>Soy Bit, tu guía. Vamos a jugar, ver videos y ganar insignias aprendiendo sobre computadores, a tu ritmo.</p>
+      <p>Soy Bit, tu guía. Vamos a jugar, ver videos, aprender un poquito de teoría y ganar insignias descubriendo el mundo de la tecnología, a tu ritmo.</p>
       <div class="btnrow">
-        <a class="btn btn-primary" href="#actividades">🎮 Empezar a jugar</a>
-        <a class="btn btn-light" href="#inclusion">🤝 Conóceme</a>
+        <a class="btn btn-primary" href="actividades.html">🎮 Empezar a jugar</a>
+        <a class="btn btn-light" href="inclusion.html">🤝 Conóceme</a>
       </div>
     </div>
     <div class="hero-mascot">
-      <svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="180" rx="55" ry="10" fill="rgba(0,0,0,.15)"/><rect x="45" y="60" width="110" height="90" rx="26" fill="#FFC94A"/><circle cx="75" cy="100" r="13" fill="#134D50"/><circle cx="125" cy="100" r="13" fill="#134D50"/><circle cx="79" cy="96" r="4" fill="#fff"/><circle cx="129" cy="96" r="4" fill="#fff"/><rect x="80" y="125" width="40" height="10" rx="5" fill="#134D50"/><rect x="90" y="20" width="20" height="42" rx="10" fill="#FFC94A"/><circle cx="100" cy="18" r="14" fill="#FF8358"/><rect x="20" y="85" width="26" height="14" rx="7" fill="#FFC94A"/><rect x="154" y="85" width="26" height="14" rx="7" fill="#FFC94A"/></svg>
+      <svg width="210" height="210" viewBox="0 0 200 200" aria-hidden="true" class="float"><ellipse cx="100" cy="180" rx="55" ry="10" fill="rgba(0,0,0,.15)"/><rect x="45" y="60" width="110" height="90" rx="26" fill="#FFC94A"/><circle cx="75" cy="100" r="13" fill="#134D50"/><circle cx="125" cy="100" r="13" fill="#134D50"/><circle cx="79" cy="96" r="4" fill="#fff"/><circle cx="129" cy="96" r="4" fill="#fff"/><rect x="80" y="125" width="40" height="10" rx="5" fill="#134D50"/><rect x="90" y="20" width="20" height="42" rx="10" fill="#FFC94A"/><circle cx="100" cy="18" r="14" fill="#FF8358"/><rect x="20" y="85" width="26" height="14" rx="7" fill="#FFC94A"/><rect x="154" y="85" width="26" height="14" rx="7" fill="#FFC94A"/></svg>
     </div>
   </div>
 </section>
 
-<section id="inclusion" class="sec-alt">
+<section class="sec-alt">
   <div class="wrap">
-    <span class="eyebrow">Sobre nosotros</span>
-    <h2>Todos aprendemos, cada uno a su manera</h2>
-    <p style="max-width:680px;">TecnoInclusión es un proyecto hecho por estudiantes de Sistemas Teleinformática para acompañar a los estudiantes de inclusión de nuestro colegio. No importa si aprendes viendo, escuchando o tocando: aquí hay una forma pensada para ti.</p>
+    <span class="eyebrow">¿Cómo funciona esta página?</span>
+    <h2>Cuatro pasos para aprender jugando</h2>
     <div class="inclu-row">
-      <div class="inclu-col">
-        <div class="bubble"><h4>👁️ ¿Aprendes mejor viendo?</h4>Usamos colores, íconos y videos para que todo se entienda de un vistazo.</div>
-        <div class="bubble"><h4>👂 ¿Aprendes mejor escuchando?</h4>Nuestros videos tienen narración clara y subtítulos.</div>
-        <div class="bubble"><h4>✋ ¿Aprendes mejor haciendo?</h4>Juegos para arrastrar, ordenar y elegir con tus propias manos.</div>
-      </div>
-      <div class="inclu-col">
-        <div class="card" style="border:3px solid var(--teal);">
-          <h3>🌈 Nuestro compromiso</h3>
-          <p>Espacio pensado para estudiantes con discapacidad intelectual, física, auditiva, visual, psicosocial, TEA, TDAH y más. Nadie se queda por fuera.</p>
-          <p style="font-size:.9rem; color:#5b7072;">Basado en el Diseño Universal para el Aprendizaje (DUA).</p>
-        </div>
-      </div>
+      <div class="card"><h3>🤝 1. Inclusión</h3><p>Conócenos y descubre que aquí hay una forma de aprender pensada para ti.</p></div>
+      <div class="card"><h3>🎮 2. Actividades</h3><p>Lee un poco de teoría y juega sobre Hardware, Software, Redes, Programación y Mantenimiento.</p></div>
+      <div class="card"><h3>🎬 3. Videos</h3><p>Refuerza lo aprendido viendo videos cortos de cada tema.</p></div>
+      <div class="card"><h3>⭐ 4. Evaluaciones</h3><p>Responde preguntas y gana tus insignias.</p></div>
     </div>
   </div>
 </section>
-
-<section id="actividades" class="sec-band">
-  <div class="wrap">
-    <span class="eyebrow">Zona de juego</span>
-    <h2>Elige un tema y juega</h2>
-    <p>Cada juego se marca con ✅ cuando lo completas.</p>
-    <div class="tabbar" id="actTabs"></div>
-    <div class="panel" id="actPanel"></div>
-  </div>
-</section>
-
-<section id="videos" class="sec-alt">
-  <div class="wrap">
-    <span class="eyebrow">Sala de videos</span>
-    <h2>Aprende viendo y escuchando</h2>
-    <div class="tabbar" id="vidTabs"></div>
-    <div class="panel" id="vidPanel"></div>
-  </div>
-</section>
-
-<section id="evaluaciones" class="sec-band">
-  <div class="wrap">
-    <span class="eyebrow">Zona de estrellas</span>
-    <h2>Demuestra lo que aprendiste</h2>
-    <p>Responde y gana tu insignia por cada tema.</p>
-
-    <div style="text-align:center; font-family:'Baloo 2'; font-weight:700; margin-top:20px;">Tu progreso total</div>
-    <div class="progress-track"><div class="progress-fill" id="totalProgress"></div></div>
-    <div class="dash" id="badgeDash"></div>
-
-    <div class="tabbar" id="evalTabs"></div>
-    <div class="panel" id="evalPanel"></div>
-  </div>
-</section>
+</main>
 
 <footer>
   <p>TecnoInclusión — Proyecto de grado, Técnica en Sistemas Teleinformática</p>
   <p>Institución Educativa Carlos Lleras Restrepo</p>
 </footer>
-
-<script>
-/* ================= DATOS ================= */
-const categories = [
-  {
-    id:'hardware', name:'Hardware', icon:'🖥️', video:'rlMReK7rfTo', duration:'3:35',
-    game:{ type:'match', instructions:'Une cada pieza con lo que hace. Haz clic en una pieza y luego en su función.',
-      pairs:[
-        {a:'🖥️ Monitor', b:'Muestra lo que hace el computador'},
-        {a:'⌨️ Teclado', b:'Sirve para escribir'},
-        {a:'🖱️ Mouse', b:'Sirve para señalar y hacer clic'},
-        {a:'🖨️ Impresora', b:'Imprime documentos en papel'}
-      ]},
-    quiz:[
-      {q:'¿Cuál parte usamos para escribir?', opts:['Mouse','Teclado','Parlante','Impresora'], correct:1},
-      {q:'¿Qué parte muestra la imagen del computador?', opts:['Monitor','Teclado','Mouse','Cable'], correct:0},
-      {q:'¿Para qué sirve el mouse?', opts:['Escuchar música','Imprimir','Señalar y hacer clic','Escribir textos'], correct:2},
-      {q:'¿Qué parte usamos para imprimir en papel?', opts:['Impresora','Monitor','Teclado','Mouse'], correct:0}
-    ]
-  },
-  {
-    id:'software', name:'Software', icon:'📀', video:'rM4__kTYwfw', duration:'2:50',
-    game:{ type:'match', instructions:'Une cada programa con lo que hace.',
-      pairs:[
-        {a:'📝 Procesador de texto', b:'Sirve para escribir documentos'},
-        {a:'🎨 Programa de dibujo', b:'Sirve para dibujar y pintar'},
-        {a:'🌐 Navegador', b:'Sirve para entrar a páginas web'},
-        {a:'🎵 Reproductor', b:'Sirve para escuchar música'}
-      ]},
-    quiz:[
-      {q:'¿Qué programa usamos para escribir un cuento?', opts:['Reproductor de música','Procesador de texto','Navegador','Calculadora'], correct:1},
-      {q:'¿Qué programa usamos para entrar a una página web?', opts:['Navegador','Programa de dibujo','Reproductor','Editor de fotos'], correct:0},
-      {q:'El software es...', opts:['Una pieza que se toca','Un programa que se instala','Un cable','Una pantalla'], correct:1},
-      {q:'¿Qué programa usamos para pintar en el computador?', opts:['Navegador','Reproductor','Programa de dibujo','Procesador de texto'], correct:2}
-    ]
-  },
-  {
-    id:'redes', name:'Redes', icon:'🌐', video:'td-vUgRofWE', duration:'4:12',
-    game:{ type:'order', instructions:'Ordena los pasos: ¿cómo viaja un mensaje por internet?',
-      steps:[
-        'Escribes el mensaje en tu computador',
-        'El mensaje se convierte en datos',
-        'Los datos viajan por la red',
-        'El mensaje llega al otro computador'
-      ]},
-    quiz:[
-      {q:'¿Qué es una red?', opts:['Un juego','Computadores conectados entre sí','Un programa de dibujo','Una impresora'], correct:1},
-      {q:'¿Qué necesitas para navegar en internet?', opts:['Conexión a la red','Solo un teclado','Solo un mouse','Nada'], correct:0},
-      {q:'Cuando envías un mensaje, primero se convierte en...', opts:['Un dibujo','Datos','Un sonido','Un video'], correct:1},
-      {q:'Internet permite que los computadores...', opts:['Se apaguen solos','Se comuniquen entre sí','No funcionen','Se rompan'], correct:1}
-    ]
-  },
-  {
-    id:'programacion', name:'Programación', icon:'🧑‍💻', video:'KKJIQYpR8GY', duration:'5:20',
-    game:{ type:'order', instructions:'Ordena las instrucciones para que el robot llegue a la meta.',
-      steps:[
-        'Encender el robot',
-        'Avanzar tres pasos',
-        'Girar a la derecha',
-        'Avanzar dos pasos más'
-      ]},
-    quiz:[
-      {q:'Programar es...', opts:['Dar instrucciones paso a paso','Ver televisión','Dormir','Cocinar'], correct:0},
-      {q:'¿Qué debe hacer el robot primero?', opts:['Girar','Encenderse','Apagarse','Saltar'], correct:1},
-      {q:'Un conjunto de instrucciones en orden se llama...', opts:['Un algoritmo','Un color','Un mouse','Un cable'], correct:0},
-      {q:'Si el orden de las instrucciones está mal, el robot...', opts:['Hace lo correcto igual','Puede perderse o fallar','Se apaga solo','Vuela'], correct:1}
-    ]
-  },
-  {
-    id:'mantenimiento', name:'Mantenimiento', icon:'🛠️', video:'y5jbjAmW8Ck', duration:'2:30',
-    game:{ type:'diagnose', instructions:'Elige la mejor solución para cada problema.',
-      cases:[
-        {problem:'El computador está muy lento', options:['Cerrar programas que no uses','Tirarlo a la basura','Gritarle'], correct:0},
-        {problem:'El teclado está muy sucio', options:['Ignorarlo','Limpiarlo con cuidado','Mojarlo con agua'], correct:1},
-        {problem:'La pantalla está negra', options:['Revisar que esté encendida y conectada','Golpearla','Desconectar todo para siempre'], correct:0}
-      ]},
-    quiz:[
-      {q:'Si el computador está lento, primero debemos...', opts:['Cerrar programas sin usar','Romperlo','Dejarlo prendido para siempre','Gritarle'], correct:0},
-      {q:'¿Cómo debemos tratar el computador?', opts:['Con cuidado','Golpeándolo','Mojándolo','Rayándolo'], correct:0},
-      {q:'Si la pantalla no enciende, primero revisamos...', opts:['Si está conectada','Si tiene stickers','El color del mouse','El volumen'], correct:0},
-      {q:'Limpiar el teclado ayuda a...', opts:['Dañarlo','Mantenerlo en buen estado','Que se apague solo','Nada'], correct:1}
-    ]
-  }
-];
-
-/* ================= ESTADO (en memoria, sin localStorage) ================= */
-const progress = {};
-categories.forEach(c => progress[c.id] = { game:false, quiz:false, score:0 });
-
-let currentActTab = categories[0].id;
-let currentVidTab = categories[0].id;
-let currentEvalTab = categories[0].id;
-
-/* ================= UTIL ================= */
-function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
-function catById(id){ return categories.find(c=>c.id===id); }
-
-/* ================= TABS ================= */
-function renderTabs(containerId, activeId, onClick){
-  const el = document.getElementById(containerId);
-  el.innerHTML = '';
-  categories.forEach(c=>{
-    const btn = document.createElement('button');
-    btn.className = 'tabbtn' + (c.id===activeId ? ' active':'');
-    btn.innerHTML = `${c.icon} ${c.name}`;
-    btn.setAttribute('aria-pressed', c.id===activeId);
-    btn.onclick = ()=> onClick(c.id);
-    el.appendChild(btn);
-  });
-}
-
-/* ================= ACTIVIDADES ================= */
-function renderActTabs(){ renderTabs('actTabs', currentActTab, id=>{ currentActTab=id; renderActTabs(); renderActPanel(); }); }
-
-function renderActPanel(){
-  const cat = catById(currentActTab);
-  const panel = document.getElementById('actPanel');
-  const done = progress[cat.id].game;
-  let html = `<h3>${cat.icon} ${cat.name} ${done ? '✅' : ''}</h3><p class="sub">${cat.game.instructions}</p>`;
-
-  if(cat.game.type === 'match'){
-    const left = cat.game.pairs.map((p,i)=>({...p, idx:i}));
-    const right = shuffle(cat.game.pairs.map((p,i)=>({...p, idx:i})));
-    html += `<div class="match-grid">
-      <div class="match-col"><h4>¿Qué es?</h4>${left.map(p=>`<button class="match-item" data-side="a" data-idx="${p.idx}">${p.a}</button>`).join('')}</div>
-      <div class="match-col"><h4>¿Para qué sirve?</h4>${right.map(p=>`<button class="match-item" data-side="b" data-idx="${p.idx}">${p.b}</button>`).join('')}</div>
-    </div>
-    <div class="feedback" id="actFeedback" role="status" aria-live="polite"></div>`;
-    panel.innerHTML = html;
-    setupMatchGame(cat);
-  } else if(cat.game.type === 'order'){
-    const shuffled = shuffle(cat.game.steps.map((s,i)=>({text:s, idx:i})));
-    html += `<div class="order-pool" id="orderPool">${shuffled.map(s=>`<button class="order-chip" data-idx="${s.idx}">${s.text}</button>`).join('')}</div>
-    <p style="font-family:'Baloo 2'; font-weight:700; color:var(--teal);">Tu orden:</p>
-    <ol class="order-list" id="orderList"></ol>
-    <button class="checkbtn" id="orderCheck" disabled>Comprobar orden</button>
-    <div class="feedback" id="actFeedback" role="status" aria-live="polite"></div>`;
-    panel.innerHTML = html;
-    setupOrderGame(cat);
-  } else if(cat.game.type === 'diagnose'){
-    html += cat.game.cases.map((c,ci)=>`
-      <div class="diag-case">
-        <p class="problem">🔧 ${c.problem}</p>
-        <div class="diag-opts">${c.options.map((o,oi)=>`<button class="diag-opt" data-case="${ci}" data-opt="${oi}">${o}</button>`).join('')}</div>
-      </div>`).join('');
-    html += `<div class="feedback" id="actFeedback" role="status" aria-live="polite"></div>`;
-    panel.innerHTML = html;
-    setupDiagnoseGame(cat);
-  }
-}
-
-function markGameComplete(cat){
-  progress[cat.id].game = true;
-  renderActTabs();
-  updateEvalDashboard();
-}
-
-function setupMatchGame(cat){
-  const items = document.querySelectorAll('#actPanel .match-item');
-  let selectedA = null, matchedCount = 0;
-  const feedback = document.getElementById('actFeedback');
-  items.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      if(btn.classList.contains('correct')) return;
-      if(btn.dataset.side === 'a'){
-        document.querySelectorAll('.match-item[data-side="a"]').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedA = btn;
-      } else {
-        if(!selectedA){ feedback.textContent = '👆 Primero elige una pieza de la izquierda.'; return; }
-        if(selectedA.dataset.idx === btn.dataset.idx){
-          selectedA.classList.remove('selected'); selectedA.classList.add('correct');
-          btn.classList.add('correct');
-          matchedCount++;
-          feedback.textContent = '🎉 ¡Correcto!';
-          selectedA = null;
-          if(matchedCount === cat.game.pairs.length){
-            feedback.textContent = '🏆 ¡Completaste este juego!';
-            markGameComplete(cat);
-          }
-        } else {
-          btn.classList.add('wrong');
-          feedback.textContent = '💡 Intenta de nuevo.';
-          setTimeout(()=> btn.classList.remove('wrong'), 600);
-        }
-      }
-    });
-  });
-}
-
-function setupOrderGame(cat){
-  const pool = document.getElementById('orderPool');
-  const list = document.getElementById('orderList');
-  const checkBtn = document.getElementById('orderCheck');
-  const feedback = document.getElementById('actFeedback');
-  let chosen = [];
-  pool.querySelectorAll('.order-chip').forEach(chip=>{
-    chip.addEventListener('click', ()=>{
-      if(chip.classList.contains('used')) return;
-      chip.classList.add('used');
-      chosen.push(parseInt(chip.dataset.idx));
-      const li = document.createElement('li');
-      li.textContent = chip.textContent;
-      list.appendChild(li);
-      if(chosen.length === cat.game.steps.length) checkBtn.disabled = false;
-    });
-  });
-  checkBtn.addEventListener('click', ()=>{
-    const correct = chosen.every((v,i)=> v===i);
-    if(correct){
-      feedback.textContent = '🏆 ¡Perfecto! Ese es el orden correcto.';
-      markGameComplete(cat);
-    } else {
-      feedback.textContent = '💡 El orden no es correcto todavía. Vuelve a intentarlo.';
-      chosen = [];
-      list.innerHTML = '';
-      pool.querySelectorAll('.order-chip').forEach(c=>c.classList.remove('used'));
-      checkBtn.disabled = true;
-    }
-  });
-}
-
-function setupDiagnoseGame(cat){
-  const feedback = document.getElementById('actFeedback');
-  let solved = new Set();
-  document.querySelectorAll('#actPanel .diag-opt').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const ci = btn.dataset.case;
-      const oi = parseInt(btn.dataset.opt);
-      const group = document.querySelectorAll(`.diag-opt[data-case="${ci}"]`);
-      if([...group].some(b=>b.classList.contains('correct'))) return;
-      const isCorrect = cat.game.cases[ci].correct === oi;
-      if(isCorrect){
-        btn.classList.add('correct');
-        solved.add(ci);
-        feedback.textContent = '🎉 ¡Buena solución!';
-        if(solved.size === cat.game.cases.length){
-          feedback.textContent = '🏆 ¡Resolviste todos los casos!';
-          markGameComplete(cat);
-        }
-      } else {
-        btn.classList.add('wrong');
-        feedback.textContent = '💡 Intenta con otra opción.';
-        setTimeout(()=> btn.classList.remove('wrong'), 600);
-      }
-    });
-  });
-}
-
-/* ================= VIDEOS ================= */
-function renderVidTabs(){ renderTabs('vidTabs', currentVidTab, id=>{ currentVidTab=id; renderVidTabs(); renderVidPanel(); }); }
-
-function renderVidPanel(){
-  const cat = catById(currentVidTab);
-  const panel = document.getElementById('vidPanel');
-  panel.innerHTML = `
-    <h3>${cat.icon} ${cat.name}</h3>
-    <div class="a11y-row"><span class="a11y">⏱️ ${cat.duration}</span><span class="a11y">CC Subtítulos disponibles en YouTube</span></div>
-    <div class="video-frame-wrap">
-      <iframe src="https://www.youtube.com/embed/${cat.video}" title="Video sobre ${cat.name}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-    </div>
-    <p class="sub">Consejo: activa los subtítulos (CC) desde el reproductor de YouTube si los necesitas.</p>`;
-}
-
-/* ================= EVALUACIONES ================= */
-function renderEvalTabs(){ renderTabs('evalTabs', currentEvalTab, id=>{ currentEvalTab=id; renderEvalTabs(); renderEvalPanel(); }); }
-
-function renderEvalPanel(){
-  const cat = catById(currentEvalTab);
-  const panel = document.getElementById('evalPanel');
-  let html = `<h3>${cat.icon} ${cat.name}</h3><p class="sub">Responde las ${cat.quiz.length} preguntas para ganar tu insignia 🏅</p>`;
-  cat.quiz.forEach((q, qi)=>{
-    html += `<div class="quiz-q">${qi+1}. ${q.q}</div>
-      <div class="quiz-opts" data-qidx="${qi}">
-        ${q.opts.map((o,oi)=>`<button class="quiz-opt" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}
-      </div>`;
-  });
-  html += `<div class="feedback" id="evalFeedback" role="status" aria-live="polite"></div>`;
-  panel.innerHTML = html;
-  setupQuiz(cat);
-}
-
-function setupQuiz(cat){
-  const feedback = document.getElementById('evalFeedback');
-  let answered = 0, correctCount = 0;
-  document.querySelectorAll('#evalPanel .quiz-opt').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const qi = btn.dataset.q;
-      const group = document.querySelectorAll(`.quiz-opts[data-qidx="${qi}"] .quiz-opt`);
-      if([...group].some(b=>b.disabled)) return;
-      const oi = parseInt(btn.dataset.o);
-      const correctIdx = cat.quiz[qi].correct;
-      group.forEach(b=> b.disabled = true);
-      group[correctIdx].classList.add('correct');
-      if(oi !== correctIdx) btn.classList.add('wrong');
-      else correctCount++;
-      answered++;
-      if(answered === cat.quiz.length){
-        progress[cat.id].quiz = true;
-        progress[cat.id].score = correctCount;
-        feedback.textContent = `🏆 ¡Terminaste! Acertaste ${correctCount} de ${cat.quiz.length}. ¡Insignia ganada!`;
-        updateEvalDashboard();
-      }
-    });
-  });
-}
-
-/* ================= DASHBOARD DE PROGRESO ================= */
-function updateEvalDashboard(){
-  const dash = document.getElementById('badgeDash');
-  dash.innerHTML = categories.map(c=>{
-    const unlocked = progress[c.id].quiz;
-    return `<div class="dash-item ${unlocked?'unlocked':''}">
-      <span class="emoji">${c.icon}</span>
-      <span class="lbl">${c.name}</span>
-      <div style="font-size:.8rem; margin-top:4px;">${unlocked ? '🏅 Ganada' : '🔒 Bloqueada'}</div>
-    </div>`;
-  }).join('');
-  const total = categories.length;
-  const done = categories.filter(c=>progress[c.id].quiz).length;
-  document.getElementById('totalProgress').style.width = Math.round((done/total)*100) + '%';
-}
-
-/* ================= INIT ================= */
-renderActTabs(); renderActPanel();
-renderVidTabs(); renderVidPanel();
-renderEvalTabs(); renderEvalPanel();
-updateEvalDashboard();
-</script>
 
 </body>
 </html>

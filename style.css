@@ -29,7 +29,7 @@ main section{padding:56px 0; position:relative; overflow:hidden;}
 
 /* DECORACIONES */
 .blob{position:absolute; border-radius:50%; opacity:.35; filter:blur(2px); z-index:0;}
-.float{animation:floaty 6s ease-in-out infinite;}
+.float{animation: floaty 6s ease-in-out infinite; will-change: transform;}
 @keyframes floaty{0%,100%{transform:translateY(0px) rotate(0deg);} 50%{transform:translateY(-16px) rotate(6deg);}}
 .spin-slow{animation:spinslow 18s linear infinite;}
 @keyframes spinslow{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}

@@ -175,3 +175,9 @@ details.flip summary::after{content:"➕"; font-size:.9rem; transition:transform
 details.flip[open] summary::after{content:"➖";}
 details.flip p{margin:12px 0 0 0; font-size:.98rem;}
 details.flip[open]{border-left-color:var(--purple); background:var(--lavender);}
+ /* ===== Controles de juego: estrellas, escuchar, pista, reiniciar ===== */
+.stars-badge{display:inline-block; background:var(--yellow); color:var(--teal-dark); font-family:'Baloo 2'; font-weight:800; padding:6px 14px; border-radius:999px; margin-bottom:14px; font-size:.95rem;}
+.game-controls{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;}
+.ctrlbtn{font-family:'Baloo 2'; font-weight:700; background:#fff; border:2px solid var(--teal); color:var(--teal-dark); padding:9px 14px; border-radius:12px; cursor:pointer; font-size:.88rem; transition:.15s;}
+.ctrlbtn:hover{background:var(--teal); color:#fff;}
+.ws-tile.hint, .match-item.hint, .catch-item.hint{outline:4px solid var(--yellow); box-shadow:0 0 0 4px rgba(255,201,74,.5);}

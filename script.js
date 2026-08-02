@@ -337,6 +337,25 @@ function updateEvalDashboard(){
 /* ================= INIT: cada página solo renderiza lo que tiene ================= */
 document.addEventListener('DOMContentLoaded', ()=>{
   renderActTabs(); renderActPanel();
+   /* Mascota flotante Bit */
+function setupFloatingBit(){
+  const bit = document.getElementById('floatingBit');
+  if(!bit) return;
+  const pupilL = document.getElementById('pupilL');
+  const pupilR = document.getElementById('pupilR');
+  const bubble = document.getElementById('bitBubble');
+  const phrases = ['¡Tú puedes! 💪','¡Sigue así! 🌟','¿Jugamos? 🎮','¡Casi lo logras! 🚀','¡Bien hecho! 🎉'];
+  let i = 0;
+  document.addEventListener('mousemove', (e)=>{
+    const rect = bit.getBoundingClientRect();
+    const dx = Math.max(-1, Math.min(1, (e.clientX - (rect.left+35))/300));
+    const dy = Math.max(-1, Math.min(1, (e.clientY - (rect.top+35))/300));
+    if(pupilL) { pupilL.setAttribute('cx', 75 + dx*4); pupilL.setAttribute('cy', 100 + dy*4); }
+    if(pupilR) { pupilR.setAttribute('cx', 125 + dx*4); pupilR.setAttribute('cy', 100 + dy*4); }
+  });
+  bit.addEventListener('click', ()=>{ i = (i+1) % phrases.length; if(bubble) bubble.textContent = phrases[i]; });
+}
+document.addEventListener('DOMContentLoaded', setupFloatingBit);
   renderVidTabs(); renderVidPanel();
   renderEvalTabs(); renderEvalPanel();
   updateEvalDashboard();

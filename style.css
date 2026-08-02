@@ -140,6 +140,37 @@ footer p{margin:4px 0; opacity:.85; font-size:.9rem;}
 details.flip{background:var(--cream); border-radius:var(--radius-md); padding:16px 20px; margin-bottom:14px; border-left:6px solid var(--coral); cursor:pointer;}
 details.flip summary{font-family:'Baloo 2'; font-weight:700; color:var(--teal-dark); font-size:1.05rem; list-style:none; display:flex; align-items:center; justify-content:space-between;}
 details.flip summary::-webkit-details-marker{display:none;}
+  /* Mascota flotante Bit */
+.floating-bit{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  animation: bitmove 4s ease-in-out infinite;
+}
+@keyframes bitmove{
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+}
+.floating-bit img,
+.floating-bit svg{
+  width:70px;
+  cursor:pointer;
+}
+.bit-bubble{
+  background:#ffffff;
+  color:#134D50;
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:12px;
+  margin-bottom:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
 details.flip summary::after{content:"➕"; font-size:.9rem; transition:transform .2s;}
 details.flip[open] summary::after{content:"➖";}
 details.flip p{margin:12px 0 0 0; font-size:.98rem;}

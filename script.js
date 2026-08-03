@@ -121,6 +121,42 @@ function attachCommonControls(cat){
   if(btnReset) btnReset.onclick = ()=> renderActPanel();
 }
  
+/* ---- Sonido tipo videojuego (sin archivos de audio) ---- */
+function playTone(freq, duration, type, delay){
+  type = type || 'sine'; delay = delay || 0;
+  try{
+    if(!window._audioCtx) window._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = window._audioCtx;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime + delay);
+    gain.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime + delay + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + delay + duration);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(ctx.currentTime + delay);
+    osc.stop(ctx.currentTime + delay + duration + 0.02);
+  }catch(e){}
+}
+function playCorrect(){ playTone(660,.12); playTone(880,.15,'sine',.08); }
+function playWrong(){ playTone(180,.25,'sawtooth'); }
+function playFanfare(){ [523,659,784,1047].forEach((f,i)=> playTone(f,.22,'triangle', i*0.12)); }
+ 
+/* ---- Confeti al ganar ---- */
+function confettiBurst(){
+  const colors = ['#FF8358','#FFC94A','#7C6FE0','#3FAE73','#FF7BAC','#1F6E72'];
+  for(let i=0;i<40;i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (Math.random()*100) + 'vw';
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDuration = (2 + Math.random()*1.5) + 's';
+    document.body.appendChild(piece);
+    setTimeout(()=> piece.remove(), 3800);
+  }
+}
+ 
 /* ================= UTIL ================= */
 function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
 function catById(id){ return categories.find(c=>c.id===id); }
@@ -227,28 +263,42 @@ function setupWordSearch(cat){
   function handleClick(i){
     const t = tiles[i];
     if(t.used) return;
+    const btnEl = grid.children[i];
     if(t.bomb){
+      if(btnEl) btnEl.classList.add('bombhit');
+      playWrong();
       feedback.textContent = '💥 ¡Bomba! Empiezas de nuevo con esta palabra.';
-      pointer = 0;
-      tiles.forEach(tile => tile.used = false);
-      renderProgress();
-      draw();
+      setTimeout(()=>{
+        pointer = 0;
+        tiles.forEach(tile => tile.used = false);
+        renderProgress();
+        draw();
+      }, 350);
       return;
     }
     if(t.letter === word[pointer]){
-      t.used = true;
-      pointer++;
-      addStar(1);
-      feedback.textContent = '✅ ¡Bien! +1 estrella';
-      renderProgress();
-      draw();
-      if(pointer === word.length){
-        addStar(3);
-        feedback.textContent = '🏆 ¡Formaste la palabra completa! +3 estrellas';
-        markGameComplete(cat);
-      }
+      if(btnEl) btnEl.classList.add('pop');
+      playCorrect();
+      setTimeout(()=>{
+        t.used = true;
+        pointer++;
+        addStar(1);
+        feedback.textContent = '✅ ¡Bien! +1 estrella';
+        renderProgress();
+        draw();
+        if(pointer === word.length){
+          addStar(3);
+          playFanfare();
+          confettiBurst();
+          feedback.textContent = '🏆 ¡Formaste la palabra completa! +3 estrellas';
+          markGameComplete(cat);
+        }
+      }, 220);
     } else {
+      if(btnEl) btnEl.classList.add('bombhit');
+      playWrong();
       feedback.textContent = '💡 Esa no es la letra que sigue, intenta otra.';
+      setTimeout(()=> btnEl && btnEl.classList.remove('bombhit'), 400);
     }
   }
 }
@@ -305,15 +355,19 @@ function setupDragLine(cat){
       rightBtn.classList.add('correct');
       matchedCount++;
       addStar(1);
+      playCorrect();
       feedback.textContent = '🎉 ¡Correcto! +1 estrella';
       if(matchedCount === leftItems.length){
         addStar(3);
+        playFanfare();
+        confettiBurst();
         feedback.textContent = '🏆 ¡Uniste todas las líneas! +3 estrellas';
         markGameComplete(cat);
       }
     } else {
       if(tempLine && tempLine.parentNode) svg.removeChild(tempLine);
       dragging.classList.add('wrong');
+      playWrong();
       feedback.textContent = '💡 Esa línea no es correcta, intenta de nuevo.';
       setTimeout(()=> dragging && dragging.classList.remove('wrong'), 500);
     }
@@ -335,6 +389,8 @@ function setupCatch(cat){
       arena.innerHTML = '';
       if(stepIndex >= steps.length){
         addStar(3);
+        playFanfare();
+        confettiBurst();
         targetEl.textContent = '🏆 ¡Todas las instrucciones en orden! +3 estrellas';
         markGameComplete(cat);
         return;
@@ -360,11 +416,14 @@ function setupCatch(cat){
         chip.onclick = ()=>{
           if(item.ok){
             addStar(1);
+            playCorrect();
+            chip.classList.add('caught');
             feedback.textContent = '✅ ¡Correcto! +1 estrella';
             stepIndex++;
-            nextRound();
+            setTimeout(nextRound, 260);
           } else {
             chip.classList.add('wrong');
+            playWrong();
             feedback.textContent = '💡 Ese no es el paso que sigue.';
           }
         };
@@ -384,6 +443,8 @@ function setupCatch(cat){
       arena.innerHTML = '';
       if(caseIndex >= cases.length){
         addStar(3);
+        playFanfare();
+        confettiBurst();
         targetEl.textContent = '🏆 ¡Resolviste todos los casos! +3 estrellas';
         markGameComplete(cat);
         return;
@@ -407,11 +468,14 @@ function setupCatch(cat){
         chip.onclick = ()=>{
           if(item.ok){
             addStar(1);
+            playCorrect();
+            chip.classList.add('caught');
             feedback.textContent = '🎉 ¡Buena solución! +1 estrella';
             caseIndex++;
-            nextCase();
+            setTimeout(nextCase, 260);
           } else {
             chip.classList.add('wrong');
+            playWrong();
             feedback.textContent = '💡 Intenta con otra opción.';
           }
         };
@@ -474,12 +538,13 @@ function setupQuiz(cat){
       const correctIdx = cat.quiz[qi].correct;
       group.forEach(b=> b.disabled = true);
       group[correctIdx].classList.add('correct');
-      if(oi !== correctIdx) btn.classList.add('wrong');
-      else correctCount++;
+      if(oi !== correctIdx){ btn.classList.add('wrong'); playWrong(); } else { correctCount++; playCorrect(); }
       answered++;
       if(answered === cat.quiz.length){
         progress[cat.id].quiz = true;
         progress[cat.id].score = correctCount;
+        playFanfare();
+        confettiBurst();
         feedback.textContent = `🏆 ¡Terminaste! Acertaste ${correctCount} de ${cat.quiz.length}. ¡Insignia ganada!`;
         updateEvalDashboard();
       }

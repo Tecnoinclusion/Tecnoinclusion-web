@@ -42,8 +42,7 @@ const categories = [
   {
     id:'programacion', name:'Programación', icon:'🧑‍💻', video:'KKJIQYpR8GY', duration:'5:20',
     theory:'Programar es dar instrucciones, paso a paso y en orden, para que el computador o un robot haga algo. A ese conjunto ordenado de instrucciones se le llama algoritmo. Si el orden está mal, el resultado también sale mal, por eso hay que pensar bien cada paso.',
-    game:{ type:'catch', ordered:true, instructions:'Atrapa las instrucciones en el orden correcto antes de que caigan, para que el robot llegue a la meta.',
-      steps:['Encender el robot','Avanzar tres pasos','Girar a la derecha','Avanzar dos pasos más']},
+    game:{ type:'wordsearch', instructions:'Haz clic en las letras en orden para formar la palabra. ¡Cuidado con las bombas 💣!', word:'ALGORITMO', bombCount:7 },
     quiz:[
       {q:'Programar es...', opts:['Dar instrucciones paso a paso','Ver televisión','Dormir','Cocinar'], correct:0},
       {q:'¿Qué debe hacer el robot primero?', opts:['Girar','Encenderse','Apagarse','Saltar'], correct:1},
@@ -54,11 +53,11 @@ const categories = [
   {
     id:'mantenimiento', name:'Mantenimiento', icon:'🛠️', video:'y5jbjAmW8Ck', duration:'3:00',
     theory:'Mantenimiento es cuidar el computador para que dure más tiempo y funcione bien. Se hace limpiando el polvo, cerrando programas que no se usan y revisando que todo esté bien conectado. Un computador bien cuidado casi no se daña.',
-    game:{ type:'catch', ordered:false, instructions:'Atrapa la mejor solución para cada problema antes de que se caiga.',
-      cases:[
-        {problem:'El computador está muy lento', options:['Cerrar programas que no uses','Tirarlo a la basura','Gritarle'], correct:0},
-        {problem:'El teclado está muy sucio', options:['Ignorarlo','Limpiarlo con cuidado','Mojarlo con agua'], correct:1},
-        {problem:'La pantalla está negra', options:['Revisar que esté encendida y conectada','Golpearla','Desconectar todo para siempre'], correct:0}
+    game:{ type:'dragline', instructions:'Arrastra una línea desde cada problema hasta su mejor solución.',
+      pairs:[
+        {a:'🐢 Computador muy lento', b:'Cerrar programas que no uses'},
+        {a:'⌨️ Teclado muy sucio', b:'Limpiarlo con cuidado'},
+        {a:'⬛ Pantalla en negro', b:'Revisar que esté encendida y conectada'}
       ]},
     quiz:[
       {q:'Si el computador está lento, primero debemos...', opts:['Cerrar programas sin usar','Romperlo','Dejarlo prendido para siempre','Gritarle'], correct:0},
@@ -585,32 +584,12 @@ function updateEvalDashboard(){
 
 /* ================= MASCOTA FLOTANTE ================= */
 function setupFloatingBit(){
+  // Bit se queda quieto: sin seguir el mouse y sin animación, solo responde al clic.
   const bit = document.getElementById('floatingBit');
   if(!bit) return;
-  const pupilL = document.getElementById('pupilL');
-  const pupilR = document.getElementById('pupilR');
   const bubble = document.getElementById('bitBubble');
   const phrases = ['¡Tú puedes! 💪','¡Sigue así! 🌟','¿Jugamos? 🎮','¡Casi lo logras! 🚀','¡Bien hecho! 🎉'];
   let i = 0;
-  let ticking = false;
-  let lastX = 0, lastY = 0;
-
-  document.addEventListener('mousemove', (e)=>{
-    lastX = e.clientX; lastY = e.clientY;
-    if(!ticking){
-      window.requestAnimationFrame(()=>{
-        const rect = bit.getBoundingClientRect();
-        const range = Math.max(window.innerWidth, window.innerHeight) * 0.6;
-        const dx = Math.max(-1, Math.min(1, (lastX - (rect.left+35))/range));
-        const dy = Math.max(-1, Math.min(1, (lastY - (rect.top+35))/range));
-        if(pupilL){ pupilL.setAttribute('cx', 75 + dx*4); pupilL.setAttribute('cy', 100 + dy*4); }
-        if(pupilR){ pupilR.setAttribute('cx', 125 + dx*4); pupilR.setAttribute('cy', 100 + dy*4); }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
   bit.addEventListener('click', ()=>{ i = (i+1) % phrases.length; if(bubble) bubble.textContent = phrases[i]; });
 }
 

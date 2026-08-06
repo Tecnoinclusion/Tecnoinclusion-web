@@ -68,18 +68,18 @@ const categories = [
     ]
   }
 ];
- 
+
 /* ================= ESTADO (en memoria) ================= */
 const progress = {};
 categories.forEach(c => progress[c.id] = { game:false, quiz:false, score:0 });
- 
+
 let currentActTab = categories[0].id;
 let currentVidTab = categories[0].id;
 let currentEvalTab = categories[0].id;
 let totalStars = 0;
- 
+
 function addStar(n){ totalStars += n; }
- 
+
 function speak(text){
   if(!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
@@ -88,7 +88,7 @@ function speak(text){
   u.rate = 0.95;
   window.speechSynthesis.speak(u);
 }
- 
+
 function giveHint(cat){
   if(cat.game.type === 'wordsearch'){
     const word = cat.game.word;
@@ -111,7 +111,7 @@ function giveHint(cat){
     if(correctChip){ correctChip.classList.add('hint'); setTimeout(()=> correctChip.classList.remove('hint'), 1600); }
   }
 }
- 
+
 function attachCommonControls(cat){
   const btnListen = document.getElementById('btnListen');
   const btnHint = document.getElementById('btnHint');
@@ -120,7 +120,7 @@ function attachCommonControls(cat){
   if(btnHint) btnHint.onclick = ()=> giveHint(cat);
   if(btnReset) btnReset.onclick = ()=> renderActPanel();
 }
- 
+
 /* ---- Sonido tipo videojuego (sin archivos de audio) ---- */
 function playTone(freq, duration, type, delay){
   type = type || 'sine'; delay = delay || 0;
@@ -142,11 +142,11 @@ function playTone(freq, duration, type, delay){
 function playCorrect(){ playTone(660,.12); playTone(880,.15,'sine',.08); }
 function playWrong(){ playTone(180,.25,'sawtooth'); }
 function playFanfare(){ [523,659,784,1047].forEach((f,i)=> playTone(f,.22,'triangle', i*0.12)); }
- 
+
 /* ---- Confeti al ganar ---- */
 function confettiBurst(){
   const colors = ['#FF8358','#FFC94A','#7C6FE0','#3FAE73','#FF7BAC','#1F6E72'];
-  for(let i=0;i<40;i++){
+  for(let i=0;i<22;i++){
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     piece.style.left = (Math.random()*100) + 'vw';
@@ -156,12 +156,12 @@ function confettiBurst(){
     setTimeout(()=> piece.remove(), 3800);
   }
 }
- 
+
 /* ================= UTIL ================= */
 function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
 function catById(id){ return categories.find(c=>c.id===id); }
 function randLetter(){ const L='BFJKMQRSVXYZ'; return L[Math.floor(Math.random()*L.length)]; }
- 
+
 /* ================= TABS ================= */
 function renderTabs(containerId, activeId, onClick){
   const el = document.getElementById(containerId);
@@ -176,10 +176,10 @@ function renderTabs(containerId, activeId, onClick){
     el.appendChild(btn);
   });
 }
- 
+
 /* ================= ACTIVIDADES: router ================= */
 function renderActTabs(){ renderTabs('actTabs', currentActTab, id=>{ currentActTab=id; renderActTabs(); renderActPanel(); }); }
- 
+
 function renderActPanel(){
   const panel = document.getElementById('actPanel');
   if(!panel) return;
@@ -194,7 +194,7 @@ function renderActPanel(){
       <button class="ctrlbtn" id="btnReset" type="button">🔄 Reiniciar nivel</button>
     </div>
     <p class="sub">${cat.game.instructions}</p>`;
- 
+
   if(cat.game.type === 'wordsearch'){
     html += `<div class="ws-progress" id="wsProgress"></div>
       <div class="ws-grid" id="wsGrid"></div>
@@ -223,13 +223,13 @@ function renderActPanel(){
   }
   attachCommonControls(cat);
 }
- 
+
 function markGameComplete(cat){
   progress[cat.id].game = true;
   renderActTabs();
   updateEvalDashboard();
 }
- 
+
 /* ================= JUEGO 1: SOPA DE LETRAS ================= */
 function setupWordSearch(cat){
   const word = cat.game.word;
@@ -237,16 +237,16 @@ function setupWordSearch(cat){
   const progressEl = document.getElementById('wsProgress');
   const feedback = document.getElementById('actFeedback');
   let pointer = 0;
- 
+
   function renderProgress(){
     progressEl.textContent = word.split('').map((l,i)=> i < pointer ? l : '_').join(' ');
   }
   renderProgress();
- 
+
   let tiles = word.split('').map(l => ({letter:l, bomb:false, used:false}));
   for(let i=0;i<(cat.game.bombCount||6);i++) tiles.push({letter:'💣', bomb:true, used:false});
   tiles = shuffle(tiles);
- 
+
   function draw(){
     grid.innerHTML = '';
     tiles.forEach((t, i)=>{
@@ -259,7 +259,7 @@ function setupWordSearch(cat){
     });
   }
   draw();
- 
+
   function handleClick(i){
     const t = tiles[i];
     if(t.used) return;
@@ -302,7 +302,7 @@ function setupWordSearch(cat){
     }
   }
 }
- 
+
 /* ================= JUEGO 2: ARRASTRAR LÍNEAS ================= */
 function setupDragLine(cat){
   const wrap = document.getElementById('dlWrap');
@@ -311,7 +311,7 @@ function setupDragLine(cat){
   const leftItems = wrap.querySelectorAll('#dlLeftCol .match-item');
   const rightItems = wrap.querySelectorAll('#dlRightCol .match-item');
   let dragging = null, tempLine = null, matchedCount = 0;
- 
+
   function pointFor(el, side){
     const r = el.getBoundingClientRect();
     const cr = wrap.getBoundingClientRect();
@@ -319,7 +319,7 @@ function setupDragLine(cat){
     const y = (r.top - cr.top) + r.height/2;
     return {x, y};
   }
- 
+
   leftItems.forEach(btn=>{
     btn.addEventListener('pointerdown', (e)=>{
       if(btn.classList.contains('correct')) return;
@@ -333,14 +333,14 @@ function setupDragLine(cat){
       e.preventDefault();
     });
   });
- 
+
   document.addEventListener('pointermove', (e)=>{
     if(!dragging || !tempLine) return;
     const cr = wrap.getBoundingClientRect();
     tempLine.setAttribute('x2', e.clientX - cr.left);
     tempLine.setAttribute('y2', e.clientY - cr.top);
   });
- 
+
   document.addEventListener('pointerup', (e)=>{
     if(!dragging) return;
     const el = document.elementFromPoint(e.clientX, e.clientY);
@@ -374,17 +374,17 @@ function setupDragLine(cat){
     dragging = null; tempLine = null;
   });
 }
- 
+
 /* ================= JUEGO 3: ATRAPAR ================= */
 function setupCatch(cat){
   const arena = document.getElementById('catchArena');
   const targetEl = document.getElementById('catchTarget');
   const feedback = document.getElementById('actFeedback');
- 
+
   if(cat.game.ordered){
     let stepIndex = 0;
     const steps = cat.game.steps;
- 
+
     function nextRound(){
       arena.innerHTML = '';
       if(stepIndex >= steps.length){
@@ -402,43 +402,50 @@ function setupCatch(cat){
       const batch = shuffle([{text:correctText, ok:true}, ...decoys.map(d=>({text:d, ok:false}))]);
       spawnBatch(batch);
     }
- 
+
+    function spawnOne(item, slotIndex, positions){
+      const chip = document.createElement('div');
+      chip.className = 'catch-item';
+      chip.textContent = item.text;
+      chip.dataset.ok = item.ok ? 'true' : 'false';
+      chip.style.left = positions[slotIndex] + '%';
+      chip.onclick = ()=>{
+        if(chip.dataset.caught === 'true') return;
+        if(item.ok){
+          chip.dataset.caught = 'true';
+          addStar(1);
+          playCorrect();
+          chip.classList.add('caught');
+          feedback.textContent = '✅ ¡Correcto! +1 estrella';
+          stepIndex++;
+          setTimeout(nextRound, 260);
+        } else {
+          chip.classList.add('wrong');
+          playWrong();
+          feedback.textContent = '💡 Ese no es el paso que sigue.';
+        }
+      };
+      chip.addEventListener('animationend', ()=>{
+        // Si nadie la atrapó a tiempo, solo esa ficha se repone (no borra las demás)
+        if(chip.isConnected && chip.dataset.caught !== 'true'){
+          chip.remove();
+          spawnOne(item, slotIndex, positions);
+        }
+      });
+      arena.appendChild(chip);
+    }
+
     function spawnBatch(batch){
       arena.querySelectorAll('.catch-item').forEach(n=>n.remove());
       const positions = [8, 40, 68];
-      batch.forEach((item, i)=>{
-        const chip = document.createElement('div');
-        chip.className = 'catch-item';
-        chip.textContent = item.text;
-        chip.dataset.ok = item.ok ? 'true' : 'false';
-        chip.style.left = positions[i] + '%';
-        chip.style.animationDelay = (i*0.4) + 's';
-        chip.onclick = ()=>{
-          if(item.ok){
-            addStar(1);
-            playCorrect();
-            chip.classList.add('caught');
-            feedback.textContent = '✅ ¡Correcto! +1 estrella';
-            stepIndex++;
-            setTimeout(nextRound, 260);
-          } else {
-            chip.classList.add('wrong');
-            playWrong();
-            feedback.textContent = '💡 Ese no es el paso que sigue.';
-          }
-        };
-        chip.addEventListener('animationend', ()=>{
-          if(chip.isConnected) spawnBatch(batch);
-        });
-        arena.appendChild(chip);
-      });
+      batch.forEach((item, i)=> spawnOne(item, i, positions));
     }
     nextRound();
- 
+
   } else {
     let caseIndex = 0;
     const cases = cat.game.cases;
- 
+
     function nextCase(){
       arena.innerHTML = '';
       if(caseIndex >= cases.length){
@@ -454,44 +461,50 @@ function setupCatch(cat){
       const batch = shuffle(c.options.map((o,i)=> ({text:o, ok: i===c.correct})));
       spawnBatch(batch);
     }
- 
+
+    function spawnOne(item, slotIndex, positions){
+      const chip = document.createElement('div');
+      chip.className = 'catch-item';
+      chip.textContent = item.text;
+      chip.dataset.ok = item.ok ? 'true' : 'false';
+      chip.style.left = positions[slotIndex % positions.length] + '%';
+      chip.onclick = ()=>{
+        if(chip.dataset.caught === 'true') return;
+        if(item.ok){
+          chip.dataset.caught = 'true';
+          addStar(1);
+          playCorrect();
+          chip.classList.add('caught');
+          feedback.textContent = '🎉 ¡Buena solución! +1 estrella';
+          caseIndex++;
+          setTimeout(nextCase, 260);
+        } else {
+          chip.classList.add('wrong');
+          playWrong();
+          feedback.textContent = '💡 Intenta con otra opción.';
+        }
+      };
+      chip.addEventListener('animationend', ()=>{
+        if(chip.isConnected && chip.dataset.caught !== 'true'){
+          chip.remove();
+          spawnOne(item, slotIndex, positions);
+        }
+      });
+      arena.appendChild(chip);
+    }
+
     function spawnBatch(batch){
       arena.querySelectorAll('.catch-item').forEach(n=>n.remove());
       const positions = [8, 38, 66];
-      batch.forEach((item, i)=>{
-        const chip = document.createElement('div');
-        chip.className = 'catch-item';
-        chip.textContent = item.text;
-        chip.dataset.ok = item.ok ? 'true' : 'false';
-        chip.style.left = positions[i % positions.length] + '%';
-        chip.style.animationDelay = (i*0.4) + 's';
-        chip.onclick = ()=>{
-          if(item.ok){
-            addStar(1);
-            playCorrect();
-            chip.classList.add('caught');
-            feedback.textContent = '🎉 ¡Buena solución! +1 estrella';
-            caseIndex++;
-            setTimeout(nextCase, 260);
-          } else {
-            chip.classList.add('wrong');
-            playWrong();
-            feedback.textContent = '💡 Intenta con otra opción.';
-          }
-        };
-        chip.addEventListener('animationend', ()=>{
-          if(chip.isConnected) spawnBatch(batch);
-        });
-        arena.appendChild(chip);
-      });
+      batch.forEach((item, i)=> spawnOne(item, i, positions));
     }
     nextCase();
   }
 }
- 
+
 /* ================= VIDEOS ================= */
 function renderVidTabs(){ renderTabs('vidTabs', currentVidTab, id=>{ currentVidTab=id; renderVidTabs(); renderVidPanel(); }); }
- 
+
 function renderVidPanel(){
   const panel = document.getElementById('vidPanel');
   if(!panel) return;
@@ -506,10 +519,10 @@ function renderVidPanel(){
     <a class="video-open" href="https://www.youtube.com/watch?v=${cat.video}" target="_blank" rel="noopener">▶️ Ver en YouTube si no carga aquí</a>
     <p class="sub" style="margin-top:10px;">Consejo: activa los subtítulos (CC) desde el reproductor de YouTube si los necesitas.</p>`;
 }
- 
+
 /* ================= EVALUACIONES ================= */
 function renderEvalTabs(){ renderTabs('evalTabs', currentEvalTab, id=>{ currentEvalTab=id; renderEvalTabs(); renderEvalPanel(); }); }
- 
+
 function renderEvalPanel(){
   const panel = document.getElementById('evalPanel');
   if(!panel) return;
@@ -525,7 +538,7 @@ function renderEvalPanel(){
   panel.innerHTML = html;
   setupQuiz(cat);
 }
- 
+
 function setupQuiz(cat){
   const feedback = document.getElementById('evalFeedback');
   let answered = 0, correctCount = 0;
@@ -551,7 +564,7 @@ function setupQuiz(cat){
     });
   });
 }
- 
+
 /* ================= DASHBOARD DE PROGRESO ================= */
 function updateEvalDashboard(){
   const dash = document.getElementById('badgeDash');
@@ -569,7 +582,7 @@ function updateEvalDashboard(){
   const bar = document.getElementById('totalProgress');
   if(bar) bar.style.width = Math.round((done/total)*100) + '%';
 }
- 
+
 /* ================= MASCOTA FLOTANTE ================= */
 function setupFloatingBit(){
   const bit = document.getElementById('floatingBit');
@@ -581,14 +594,15 @@ function setupFloatingBit(){
   let i = 0;
   let ticking = false;
   let lastX = 0, lastY = 0;
- 
+
   document.addEventListener('mousemove', (e)=>{
     lastX = e.clientX; lastY = e.clientY;
     if(!ticking){
       window.requestAnimationFrame(()=>{
         const rect = bit.getBoundingClientRect();
-        const dx = Math.max(-1, Math.min(1, (lastX - (rect.left+35))/300));
-        const dy = Math.max(-1, Math.min(1, (lastY - (rect.top+35))/300));
+        const range = Math.max(window.innerWidth, window.innerHeight) * 0.6;
+        const dx = Math.max(-1, Math.min(1, (lastX - (rect.left+35))/range));
+        const dy = Math.max(-1, Math.min(1, (lastY - (rect.top+35))/range));
         if(pupilL){ pupilL.setAttribute('cx', 75 + dx*4); pupilL.setAttribute('cy', 100 + dy*4); }
         if(pupilR){ pupilR.setAttribute('cx', 125 + dx*4); pupilR.setAttribute('cy', 100 + dy*4); }
         ticking = false;
@@ -596,10 +610,10 @@ function setupFloatingBit(){
       ticking = true;
     }
   });
- 
+
   bit.addEventListener('click', ()=>{ i = (i+1) % phrases.length; if(bubble) bubble.textContent = phrases[i]; });
 }
- 
+
 /* ================= INIT ================= */
 document.addEventListener('DOMContentLoaded', ()=>{
   renderActTabs(); renderActPanel();

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TecnoInclusión - Evaluaciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="navwrap">
+    <a class="brand" href="index.html">
+      <img src="escudo.jpg" alt="Escudo I.E. Carlos Lleras Restrepo" style="width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+      TecnoInclusión
+    </a>
+    <div class="navlinks">
+      <a href="index.html">🏠 Inicio</a>
+      <a href="inclusion.html">🤝 Inclusión</a>
+      <a href="grado10.html">🔟 Grado Décimo</a>
+      <a href="grado11.html">1️⃣1️⃣ Grado Once</a>
+      <a href="evaluaciones.html" class="active">⭐ Evaluaciones</a>
+    </div>
+  </div>
+</nav>
+
+<section class="sec-band">
+  <div class="wrap">
+    <span class="eyebrow">Zona de estrellas</span>
+    <h2>Demuestra lo que aprendiste en cada tema</h2>
+    <p>Cada uno de los 8 temas (Grado Décimo y Grado Once) tiene su propia evaluación. ¡No hay respuestas malas, solo pistas para seguir aprendiendo!</p>
+
+    <div style="text-align:center; font-family:'Baloo 2'; font-weight:700; margin-top:20px; position:relative; z-index:2;">Tu progreso total</div>
+    <div class="progress-track"><div class="progress-fill" id="totalProgress"></div></div>
+    <div class="dash" id="badgeDash"></div>
+
+    <div class="tabbar" id="evalTabs"></div>
+    <div class="panel" id="evalPanel"></div>
+  </div>
+</section>
+
+<footer>
+  <img src="bandera.png" alt="Bandera Institución Educativa Carlos Lleras Restrepo" style="width:170px; margin-bottom:14px;">
+  <p>TecnoInclusión — Proyecto de grado, Media Técnica en Sistemas Teleinformática</p>
+  <p>Institución Educativa Carlos Lleras Restrepo — Yopal, Casanare</p>
+</footer>
+
+<div class="floating-bit" id="floatingBit">
+  <div class="bit-bubble" id="bitBubble">¡Hola! 👋</div>
+  <svg viewBox="0 0 200 200" aria-hidden="true">
+    <rect x="45" y="60" width="110" height="90" rx="26" fill="#FFC94A"/>
+    <circle cx="75" cy="100" r="13" fill="#134D50"/>
+    <circle cx="125" cy="100" r="13" fill="#134D50"/>
+    <circle cx="75" cy="100" r="4" fill="#fff"/>
+    <circle cx="125" cy="100" r="4" fill="#fff"/>
+    <rect x="80" y="125" width="40" height="10" rx="5" fill="#134D50"/>
+    <rect x="90" y="20" width="20" height="42" rx="10" fill="#FFC94A"/>
+    <circle cx="100" cy="18" r="14" fill="#FF8358"/>
+  </svg>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

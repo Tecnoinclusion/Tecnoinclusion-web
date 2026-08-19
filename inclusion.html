@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TecnoInclusión - Inclusión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="navwrap">
+    <a class="brand" href="index.html">
+      <img src="escudo.jpg" alt="Escudo I.E. Carlos Lleras Restrepo" style="width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+      TecnoInclusión
+    </a>
+    <div class="navlinks">
+      <a href="index.html"><i class="bi bi-house-door-fill"></i> Inicio</a>
+      <a href="inclusion.html" class="active"><i class="bi bi-people-fill"></i> Inclusión</a>
+      <a href="grado10.html"><i class="bi bi-mortarboard-fill"></i> Grado Décimo</a>
+      <a href="grado11.html"><i class="bi bi-mortarboard"></i> Grado Once</a>
+      <a href="evaluaciones.html"><i class="bi bi-star-fill"></i> Evaluaciones</a>
+    </div>
+  </div>
+</nav>
+
+<section class="sec-alt">
+  <div class="blob" style="width:200px; height:200px; background:var(--lavender); top:-60px; right:-60px; opacity:.6;"></div>
+  <div class="wrap">
+    <span class="eyebrow">Sobre nosotros</span>
+    <h2>Todos aprendemos, cada uno a su manera</h2>
+    <p style="max-width:700px;">TecnoInclusión acompaña a los estudiantes de inclusión de la Media Técnica en Sistemas Teleinformática. No importa si aprendes viendo, escuchando o tocando: cada tema tiene teoría para leer, un botón para escucharla, y un juego para practicar.</p>
+
+    <div class="inclu-row">
+      <div class="inclu-col">
+        <div class="bubble"><h4><i class="bi bi-eye-fill"></i> ¿Aprendes mejor viendo?</h4>Cada tema tiene texto corto, colores e íconos claros.</div>
+        <div class="bubble"><h4><i class="bi bi-volume-up-fill"></i> ¿Aprendes mejor escuchando?</h4>Todos los temas y evaluaciones tienen un botón "🔊 Escuchar" que lee el contenido en voz alta.</div>
+        <div class="bubble"><h4><i class="bi bi-hand-index-thumb-fill"></i> ¿Aprendes mejor haciendo?</h4>Cada tema tiene un juego para practicar la palabra clave, con pistas si te trabas.</div>
+      </div>
+      <div class="inclu-col">
+        <div class="card" style="border:3px solid var(--teal);">
+          <h3><i class="bi bi-rainbow"></i> Nuestro compromiso</h3>
+          <p>Espacio pensado para estudiantes con discapacidad intelectual, física, auditiva, visual, psicosocial, TEA, TDAH y más. Nadie se queda por fuera.</p>
+          <p style="font-size:.9rem; color:#5b7072;">Basado en el Diseño Universal para el Aprendizaje (DUA): múltiples formas de representar la información, de participar y de expresar lo aprendido.</p>
+        </div>
+        <div class="card" style="margin-top:20px;">
+          <h3><i class="bi bi-building"></i> Nuestra institución</h3>
+          <p>La Institución Educativa Carlos Lleras Restrepo nació en 1994 en el barrio El Triunfo de Yopal. Hoy atiende también a estudiantes con baja visión y baja audición — por eso existe TecnoInclusión.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btnrow" style="margin-top:36px;">
+      <a class="btn btn-primary" href="grado10.html" style="color:#fff;"><i class="bi bi-mortarboard-fill"></i> Ir a Grado Décimo</a>
+      <a class="btn btn-primary" href="grado11.html" style="background:var(--purple); color:#fff;"><i class="bi bi-mortarboard"></i> Ir a Grado Once</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="bandera.png" alt="Bandera Institución Educativa Carlos Lleras Restrepo" style="width:170px; margin-bottom:14px;">
+  <p>TecnoInclusión — Proyecto de grado, Media Técnica en Sistemas Teleinformática</p>
+  <p>Institución Educativa Carlos Lleras Restrepo — Yopal, Casanare</p>
+</footer>
+
+<div class="floating-bit" id="floatingBit">
+  <div class="bit-bubble" id="bitBubble">¡Hola! 👋</div>
+  <img src="grupo.png" alt="Equipo TecnoInclusión" style="width:64px; display:block; filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));">
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
